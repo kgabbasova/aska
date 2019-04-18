@@ -20,11 +20,11 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo">
+                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark h1" href="home">Aska</a>
+                <a class="blog-header-logo text-dark h1" href="/home">Aska</a>
             </div>
 
             <div class="col-4 d-flex justify-content-end align-items-center">
@@ -39,7 +39,7 @@
 
     <div class="sign-up form-style-5 mt-3 mb-4">
 
-        <form:form action="/registration" method="post" modelAttribute="registrationForm">
+        <form:form action="${s:mvcUrl('UC#registrationPost').build()}" method="post" modelAttribute="registrationForm">
             <fieldset>
                 <legend> Registration</legend>
 
@@ -87,6 +87,9 @@
                         <option value="Indonesia">Indonesia</option>
                     </form:select>
                 </div>
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
                 <input type="submit" value="Submit">
             </fieldset>
         </form:form>

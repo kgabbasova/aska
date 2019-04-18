@@ -19,23 +19,25 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <img class="logo" src = "../resources/images/logo.png" alt="logo" id="Aska-logo">
+                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark h1" href="home">Aska</a>
+                <a class="blog-header-logo text-dark h1" href="/home">Aska</a>
             </div>
 
             <div class="col-4 d-flex justify-content-end align-items-center">
                 <div class="justify-content-end">
                     <sec:authorize access="!isAuthenticated()">
-                    <a class="btn btn-sm btn-outline-secondary log-in-btn" href="../login">Log in</a>
-                    <a class="btn btn-sm btn-outline-secondary sign-up-btn" href="../registration">Sign up</a>
+                        <a class="btn btn-sm btn-outline-secondary log-in-btn"
+                           href="${s:mvcUrl('UC#loginGet').build()}">Log in</a>
+                        <a class="btn btn-sm btn-outline-secondary sign-up-btn"
+                           href="${s:mvcUrl('UC#registrationGet').build()}">Sign up</a>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
-                        <form id="logout" action="/logout" method="post" >
+                        <form id="logout" action="/logout" method="post">
                             <button type="submit" class="btn btn-sm btn-outline-secondary log-out-btn">Logout</button>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </sec:authorize>
                 </div>
@@ -50,25 +52,32 @@
             <a class="p-2 text-muted" href="#about-us">About us</a>
             <a class="p-2 text-muted" href="#survey-code-form">Enter a code</a>
             <a class="p-2 text-muted" href="#partners">Partners</a>
-            <sec:authorize access="isAuthenticated()">
-                <a class="p-2 text-muted" href="/profile">Profile</a>
-            </sec:authorize>
         </nav>
     </div>
 
-    
+    <sec:authorize access="isAuthenticated()">
+        <div class="nav-scroller py-3 mb-4 mt-2">
+            <nav class="nav d-flex justify-content-around align-items-center">
+            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Your profile</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl('SC#createSurveyGet').build()}">Create a survey</a>
+            </nav>
+        </div>
+    </sec:authorize>
+
 
     <section class="row about-us mb-2" id="about-us">
 
         <div class="col-md-7 about-us-text">
             <h2 class="featurette-heading">Participate in the survey or create your own!</h2>
-            <p class="lead">Use Aska and get an opportunity to conduct an interactive survey with a graphical presentation
+            <p class="lead">Use Aska and get an opportunity to conduct an interactive survey with a graphical
+                presentation
                 of the results. All you need is to go through a few small steps to log in.</p>
             <p class="lead">Or just enter the <a href="#survey-code-form">survey code </a> to answer a tricky question!
             </p>
         </div>
         <div class="col-md-5">
-            <img src="../resources/images/survey.png" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+            <img src="../resources/images/survey.png"
+                 class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
                  width="500" height="500" alt="Your voice matters!">
         </div>
 
@@ -88,6 +97,9 @@
             <form action="/home" method="post">
                 <div class="survey-code">
                     <input type="text" name="survey-code" id="survey-code-form">
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
                     <input type="submit" value="Submit!">
                 </div>
             </form>

@@ -19,11 +19,11 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo">
+                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark h1" href="home">Aska</a>
+                <a class="blog-header-logo text-dark h1" href="/home">Aska</a>
             </div>
 
             <div class="col-4 d-flex justify-content-end align-items-center">
@@ -51,6 +51,12 @@
                     <p class="message">
                         You have been logged out.
                     </p>
+                </c:if>
+
+                <c:if test="${not empty message}">
+                    <div class="message">
+                        <p>${message}</p>
+                    </div>
                 </c:if>
 
                 <div>

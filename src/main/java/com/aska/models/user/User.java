@@ -1,7 +1,10 @@
 package com.aska.models.user;
 
+import com.aska.models.survey.Survey;
+
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 
 @Entity
@@ -27,6 +30,9 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private UserState state;
+
+    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List <Survey> surveys;
 
     @Override
     public String toString() {
@@ -108,6 +114,16 @@ public class User {
     public void setState(UserState state) {
         this.state = state;
     }
+
+
+    public List<Survey> getSurveys() {
+        return surveys;
+    }
+
+    public void setSurveys(List<Survey> surveys) {
+        this.surveys = surveys;
+    }
+
 
     public static class Builder {
         private User newUser;

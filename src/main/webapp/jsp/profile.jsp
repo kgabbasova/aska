@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -19,11 +19,11 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <img class="logo" src = "../resources/images/logo.png" alt="logo" id="Aska-logo">
+                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark h1" href="home">Aska</a>
+                <a class="blog-header-logo text-dark h1" href="/home">Aska</a>
             </div>
 
             <div class="col-4 d-flex justify-content-end align-items-center">
@@ -42,7 +42,7 @@
     <div class="nav-scroller py-3 mb-4 mt-2">
         <nav class="nav d-flex justify-content-around align-items-center">
             <a class="p-2 text-muted" href="#">Edit profile</a>
-            <a class="p-2 text-muted" href="#">Create a survey</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl('SC#createSurveyGet').build()}">Create a survey</a>
             <a class="p-2 text-muted" href="#survey-code-form">Enter a code</a>
         </nav>
     </div>
@@ -61,6 +61,9 @@
             <form action="/home" method="post">
                 <div class="survey-code">
                     <input type="text" name="survey-code" id="survey-code-form">
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
                     <input type="submit" value="Submit!">
                 </div>
             </form>
