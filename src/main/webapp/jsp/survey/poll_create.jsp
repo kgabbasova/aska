@@ -20,7 +20,7 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
+                <a href="/home"><img class="logo" src="/resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">
@@ -79,12 +79,55 @@
                     </form:select>
                 </div>
 
-                    <%--<div>--%>
-                    <%--<label for ="survey-results-show">--%>
-                    <%--<form:input type="checkbox" path="resultsShow" id="survey-results-show"/>--%>
-                    <%--Do you want to show results to respondents?--%>
-                    <%--</label>--%>
-                    <%--</div>--%>
+                <div>
+                    <label for="survey-results-show">
+                        <form:checkbox path="resultsShow" id="survey-results-show"/>
+                        Do you want to show results to respondents?
+                    </label>
+                </div>
+
+
+                <div>
+                    <ol>
+                            <li>
+                                <label for="survey-question-body">Type a question
+                                    <form:textarea id="survey-question-body"
+                                                   path="question.description"
+                                                   required="true" maxlength="512" rows="4"/>
+                                </label>
+
+                                <ol>
+                                        <li>
+                                            <label for="survey-answer-body">Answer
+                                                <form:textarea path="answer.description"
+                                                               id="survey-answer-body"
+                                                               required="true" maxlength="256" rows="2"/>
+                                            </label>
+
+                                            <%--<label for="survey-answer-is-right">--%>
+                                                <%--<form:checkbox path="answer.isRight"--%>
+                                                               <%--id="survey-answer-is-right"/>--%>
+                                                <%--Is it a right answer?--%>
+                                            <%--</label>--%>
+                                        </li>
+                                        <li>
+                                            <label for="survey-answer-name-2">Answer
+                                                <form:textarea path="answer.description"
+                                                               id="survey-answer-name-2"
+                                                               required="true" maxlength="256" rows="2"/>
+                                            </label>
+                                            <%--<label for="survey-answer-is-right-2">--%>
+                                                <%--<form:checkbox path="answer.isRight" id="survey-answer-is-right-2"/>--%>
+                                                <%--Is it a right answer?--%>
+                                            <%--</label>--%>
+                                        </li>
+
+                                </ol>
+
+                            </li>
+
+                    </ol>
+                </div>
 
 
                 <input type="hidden"

@@ -79,4 +79,15 @@ public class SurveyQuestion {
     public void setSurvey(Survey survey) {
         this.survey = survey;
     }
+
+    @Override
+    public String toString() {
+        return "SurveyQuestion{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", questionAnswers=" + questionAnswers +
+                ", survey=" + survey +
+                '}';
+    }
 }

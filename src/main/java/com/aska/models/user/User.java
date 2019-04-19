@@ -31,7 +31,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserState state;
 
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private List <Survey> surveys;
 
     @Override

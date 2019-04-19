@@ -9,7 +9,7 @@
 <head>
     <title>Home</title>
     <meta charset="utf-8">
-    <link href="../resources/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
+                <a href="/home"><img class="logo" src="/resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">
@@ -76,7 +76,7 @@
             </p>
         </div>
         <div class="col-md-5">
-            <img src="../resources/images/survey.png"
+            <img src="/resources/images/survey.png"
                  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
                  width="500" height="500" alt="Your voice matters!">
         </div>

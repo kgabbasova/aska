@@ -30,7 +30,6 @@ public class SurveyQuestionAnswer {
 
     }
 
-
     public Long getId() {
         return id;
     }
@@ -62,5 +61,15 @@ public class SurveyQuestionAnswer {
 
     public void setSurveyQuestion(SurveyQuestion surveyQuestion) {
         this.surveyQuestion = surveyQuestion;
+    }
+
+    @Override
+    public String toString() {
+        return "SurveyQuestionAnswer{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", isRight=" + isRight +
+                ", surveyQuestion=" + surveyQuestion +
+                '}';
     }
 }

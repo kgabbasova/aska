@@ -7,6 +7,25 @@
 img.logo {
     width: 50%;
 }
+.css-serial {
+    counter-reset: serial-number;  /* Set the serial number counter to 0 */
+}
+
+.css-serial td:first-child:before {
+    counter-increment: serial-number;  /* Increment the serial number counter */
+    content: counter(serial-number);  /* Display the counter */
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+.user-surveys table th {
+    font-size:  1.2em;
+}
+
+.user-surveys table td {
+    font-size:  1.1em;
+}
+
+
 
 
 .featurette-heading {

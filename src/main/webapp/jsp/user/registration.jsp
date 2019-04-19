@@ -10,7 +10,7 @@
 <head>
     <title>Sign up</title>
     <meta  http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="../resources/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
 
             <div class="col-4">
-                <a href="/home"><img class="logo" src="../resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
+                <a href="/home"><img class="logo" src="/resources/images/logo.png" alt="logo" id="Aska-logo"> </a>
             </div>
 
             <div class="col-4 text-center">

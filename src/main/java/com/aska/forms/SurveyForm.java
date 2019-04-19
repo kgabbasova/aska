@@ -4,6 +4,7 @@ import com.aska.models.survey.SurveyQuestion;
 import com.aska.models.survey.SurveyQuestionAnswer;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SurveyForm {
     private String name;
@@ -12,17 +13,24 @@ public class SurveyForm {
 
     private boolean resultsShow;
 
-    private List <SurveyQuestion> questions;
+    private SurveyQuestion question;
 
-    private List <SurveyQuestionAnswer> answers;
+    private SurveyQuestionAnswer answer;
 
-    public SurveyForm(String name, String showMode, boolean resultsShow, List<SurveyQuestion> questions, List<SurveyQuestionAnswer> answers) {
+
+    public SurveyForm() {
+
+    }
+
+    public SurveyForm(String name, String showMode, boolean resultsShow,
+                       SurveyQuestion question, SurveyQuestionAnswer answer) {
         this.name = name;
         this.showMode = showMode;
         this.resultsShow = resultsShow;
-        this.questions = questions;
-        this.answers = answers;
+        this.question = question;
+        this.answer = answer;
     }
+
 
     public String getName() {
         return name;
@@ -49,24 +57,30 @@ public class SurveyForm {
     }
 
 
-
-    public SurveyForm() {
-
+    public SurveyQuestion getQuestion() {
+        return question;
     }
 
-    public List<SurveyQuestion> getQuestions() {
-        return questions;
+    public void setQuestion(SurveyQuestion question) {
+        this.question = question;
     }
 
-    public void setQuestions(List<SurveyQuestion> questions) {
-        this.questions = questions;
+    public SurveyQuestionAnswer getAnswer() {
+        return answer;
     }
 
-    public List<SurveyQuestionAnswer> getAnswers() {
-        return answers;
+    public void setAnswer(SurveyQuestionAnswer answer) {
+        this.answer = answer;
     }
 
-    public void setAnswers(List<SurveyQuestionAnswer> answers) {
-        this.answers = answers;
+    @Override
+    public String toString() {
+        return "SurveyForm{" +
+                "name='" + name + '\'' +
+                ", showMode='" + showMode + '\'' +
+                ", resultsShow=" + resultsShow +
+                ", question=" + question +
+                ", answer=" + answer +
+                '}';
     }
 }

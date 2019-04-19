@@ -2,10 +2,15 @@ package com.aska.controllers;
 
 
 import com.aska.forms.RegistrationForm;
+import com.aska.models.survey.Survey;
+import com.aska.models.user.User;
+import com.aska.repositories.UserRepository;
 import com.aska.services.RegistrationService;
+import com.aska.services.SurveyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -28,6 +34,9 @@ public class UserController {
     @Autowired
     private RegistrationService registrationService;
 
+    @Autowired
+    private SurveyServiceImpl surveyService;
+
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
     public String registrationGet(Model model) throws ParseException {
@@ -35,7 +44,7 @@ public class UserController {
             return "redirect:"+ MvcUriComponentsBuilder.fromMappingName("UC#homeGet").build();
         }
         model.addAttribute("registrationForm", new RegistrationForm());
-        return "registration";
+        return "user/registration";
     }
 
 
@@ -45,18 +54,15 @@ public class UserController {
                                    BindingResult bindingResult,
                                    ModelMap modelMap) throws SQLException {
 
-
-
         if (registrationService.isExist(registrationForm.getUsername())) {
             modelMap.addAttribute("message", "User with the same username already exists!");
-            return "registration";
+            return "user/registration";
         }
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "user/registration";
         } else {
             registrationService.registerUser(registrationForm);
             redirectAttributes.addFlashAttribute("message", "User " + registrationForm.getUsername() + " has been successfully registered!");
-//            modelMap.addAttribute("message", "User " + registrationForm.getUsername() + " has been successfully registered!");
             return "redirect:"+ MvcUriComponentsBuilder.fromMappingName("UC#loginGet").build();
         }
     }
@@ -65,10 +71,11 @@ public class UserController {
     @RequestMapping(path = "/login", method = RequestMethod.GET)
 
     public String loginGet(ModelMap modelMap) {
+
         if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             return "redirect:"+ MvcUriComponentsBuilder.fromMappingName("UC#homeGet").build();
         }
-        return "login";
+        return "user/login";
     }
 
 
@@ -78,7 +85,7 @@ public class UserController {
         if (request.getParameterMap().containsKey("error")) {
             modelMap.addAttribute("error", true);
         }
-        return "login";
+        return "user/login";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -89,10 +96,13 @@ public class UserController {
 
 
     @RequestMapping(path = "/profile", method = RequestMethod.GET)
-    public String profileGet (ModelMap modelMap) {
-        return "profile";
+    public String profileGet (ModelMap modelMap) throws SQLException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        System.out.println(currentUserName);
+        List<Survey> surveys = surveyService.getUserSurveys(currentUserName);
+        System.out.println(surveys);
+        modelMap.addAttribute("surveys", surveys);
+        return "user/profile";
     }
-
-
-
 }

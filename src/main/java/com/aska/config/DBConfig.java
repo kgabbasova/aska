@@ -1,12 +1,15 @@
 package com.aska.config;
 
 
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -15,6 +18,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -24,6 +28,10 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "com.aska", entityManagerFactoryRef = "entityManagerFactoryBean")
 @EnableTransactionManagement
 public class DBConfig extends DriverManagerDataSource {
+
+    @Resource
+    private Environment env;
+
 
     @Bean
     public DataSource postgresqlDataSource() {
@@ -40,6 +48,7 @@ public class DBConfig extends DriverManagerDataSource {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(postgresqlDataSource());
+        em.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         em.setPackagesToScan("com.aska.models");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         ((HibernateJpaVendorAdapter) vendorAdapter).setDatabase(Database.POSTGRESQL);
@@ -59,7 +68,7 @@ public class DBConfig extends DriverManagerDataSource {
     }
 
 
-    //    @Bean
+//        @Bean
 //    public LocalSessionFactoryBean sessionFactory() {
 //        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 //        sessionFactory.setDataSource(postgresqlDataSource());
