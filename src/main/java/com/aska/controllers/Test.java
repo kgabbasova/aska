@@ -22,7 +22,7 @@ public class Test {
 
 
     public static void main(String[] args) throws SQLException {
-        new SurveyServiceImpl().testing();
+//        new SurveyServiceImpl().testing();
     }
 
 }

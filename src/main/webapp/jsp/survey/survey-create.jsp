@@ -42,101 +42,139 @@
 
     <div class="nav-scroller py-3 mb-4 mt-2">
         <nav class="nav d-flex justify-content-around align-items-center">
-            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Your profile</a>
-            <a class="p-2 text-muted" href="#">Your surveys</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Edit profile</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Your surveys</a>
             <a class="p-2 text-muted" href="#">Enter a code</a>
         </nav>
     </div>
 
 
-    <div class="poll form-style-5 mt-3 mb-4">
+    <div class="poll mt-3 mb-4 jumbotron p-4 p-md-5 text-dark rounded bg-light">
+        <div class="form-style-6">
 
-        <form:form action="${s:mvcUrl('SC#createSurveyPost').build()}" method="post" modelAttribute="surveyForm">
-            <fieldset>
-                <legend> Create your poll!</legend>
+            <form:form action="${s:mvcUrl('SC#createSurveyPost').build()}" method="post" modelAttribute="surveyForm">
+                <fieldset>
+                    <legend> Create your poll!</legend>
 
-                <c:if test="${not empty message}">
-                    <div class="message">
-                        <p>${message}</p>
-                    </div>
-                </c:if>
+                    <c:if test="${not empty message}">
+                        <div class="message">
+                            <p>${message}</p>
+                        </div>
+                    </c:if>
 
-
-                <div>
-                    <label for="survey-name">Survey name
-                        <input type="text" name="name" id="survey-name"
-                               autofocus="true" required="true" maxlength="64"/>
-                    </label>
-                </div>
-
-                <div>
-                    <label for="survey-show-mode"> Please, select the questions display mode </label>
-                    <select name="showMode" id="survey-show-mode">
-                        <option value="All" selected>Show all questions</option>
-                        <option value="Author"> On your initiative</option>
-                        <option value="Respondent"> On the initiative of the respondent</option>
-                        <option value="Time">Show after a determined time</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="survey-results-show">
-                        <form:checkbox path="resultsShow" id="survey-results-show"/>
-                        Do you want to show results to respondents?
-                    </label>
-                </div>
-
-
-                <div>
-                    <ol>
-                        <li>
-                            <label for="survey-question-body">Type a question
-                                <textarea id="survey-question-body"
-                                          name="question.description"
-                                          required="true" maxlength="512" rows="4"> </textarea>
+                    <div class="survey-info mb-5">
+                        <div>
+                            <label for="survey-name">Survey name
+                                <form:input path="name" type="text" name="name" id="survey-name"
+                                            required="true" maxlength="64"/>
                             </label>
+                        </div>
+
+
+                        <div>
+                            <label for="survey-show-mode"> Please, select the questions display mode </label>
+                            <form:select path="showMode" name="showMode" id="survey-show-mode">
+                                <option value="ALL" selected>Show all questions</option>
+                                <option value="AUTHOR"> On your initiative</option>
+                                <option value="RESPONDENT"> On the initiative of the respondent</option>
+                                <option value="TIME">Show after a determined time</option>
+                            </form:select>
+                        </div>
+
+                        <div>
+                            <label for="survey-results-show">
+                                <form:checkbox path="resultsShow" id="survey-results-show"/>
+                                Do you want to show results to respondents?
+                            </label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="survey-question-info">
+                        <div class="survey-question-info mb-4">
+
+                            <c:set var="countQ" value="0" scope="page"/>
+                            <p><span class="number">${countQ+1}</span>Question</p>
+
+                            <div>
+                                <label for="survey-question-body">Type a question
+                                    <form:textarea path="questions[${countQ}].description" id="survey-question-body"
+                                                   name="question.description" cssClass="mb-3"
+                                                   required="true" maxlength="512" rows="4"/>
+                                </label>
+                            </div>
+
+
+                            <p>Choose a type of the question:</p>
+
+                            <div class="row justify-content-around mt-3 mb-4">
+                                <div>
+                                    <label for="question-single">
+                                        <form:radiobutton path="questions[${countQ}].type" value="single"
+                                                          id="question-single"/>
+                                        One answer question</label>
+                                </div>
+                                <div>
+                                    <label for="question-multiple">
+                                        <form:radiobutton path="questions[${countQ}].type" value="multi"
+                                                          id="question-multiple"/>
+                                        Multiple choice question</label>
+                                </div>
+                            </div>
+
 
                             <ol>
-                                <li>
-                                    <label for="survey-answer-body">Answer
-                                        <textarea path="answer.description"
-                                                  id="survey-answer-body"
-                                                  required="true" maxlength="256" rows="2"></textarea>
-                                    </label>
+                                    <c:set var="countA" value="0" scope="page"/>
+                                    <div class="mb-4">
+                                        <li>
+                                            <label for="survey-answer-body">Answer
+                                                <form:textarea
+                                                        path="questions[${countQ}].questionAnswers[${countA}].description"
+                                                        id="survey-answer-body" cssClass="mb-1"
+                                                        required="true" maxlength="256" rows="2"/>
+                                            </label>
 
-                                    <%--<label for="survey-answer-is-right">--%>
-                                        <%--<form:checkbox path="answer.isRight"--%>
-                                                       <%--id="survey-answer-is-right"/>--%>
-                                        <%--Is it a right answer?--%>
-                                    <%--</label>--%>
-                                </li>
-                                <li>
-                                    <label for="survey-answer-name-2">Answer
-                                        <textarea name="answer.description"
-                                                  id="survey-answer-name-2"
-                                                  required="true" maxlength="256" rows="2"> </textarea>
-                                    </label>
-                                    <%--<label for="survey-answer-is-right-2">--%>
-                                    <%--<form:checkbox path="answer.isRight" id="survey-answer-is-right-2"/>--%>
-                                    <%--Is it a right answer?--%>
-                                    <%--</label>--%>
-                                </li>
-
+                                            <label for="survey-answer-is-right">
+                                                <form:checkbox
+                                                        path="questions[${countQ}].questionAnswers[${countA}].right"
+                                                        id="survey-answer-is-right"/>
+                                                Is it a right answer?
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div class="mb-4">
+                                        <li>
+                                            <c:set var="countA" value="${countA + 1}" scope="page"/>
+                                            <label for="survey-answer-body-2">Answer
+                                                <form:textarea
+                                                        path="questions[${countQ}].questionAnswers[${countA}].description"
+                                                        name="answer.description" cssClass="mb-1"
+                                                        id="survey-answer-body-2"
+                                                        required="true" maxlength="256" rows="2"/>
+                                            </label>
+                                            <label for="survey-answer-is-right-2">
+                                                <form:checkbox
+                                                        path="questions[${countQ}].questionAnswers[${countA}].right"
+                                                        id="survey-answer-is-right-2"/>
+                                                Is it a right answer?
+                                            </label>
+                                        </li>
+                                    </div>
+                                <button class="btn col-3 add-answer" id="add-answer-1" type="button">Add answer</button>
                             </ol>
-
-                        </li>
-
-                    </ol>
-                </div>
+                        </div>
+                        <hr>
+                    </div>
 
 
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
-                <input type="submit" value="Submit">
-            </fieldset>
-        </form:form>
+                    <button class="btn col-3" id="add-question" type="button">Add question</button>
 
+
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="submit" value="Submit" class="btn col-6">
+                </fieldset>
+            </form:form>
+
+        </div>
     </div>
 </div>
 
@@ -146,6 +184,7 @@
         <a href="#Aska-logo">Back to top</a>
     </p>
 </footer>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/resources/js/base.js"></script>
 </body>
 </html>

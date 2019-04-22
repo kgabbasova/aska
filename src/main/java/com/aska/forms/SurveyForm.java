@@ -6,6 +6,7 @@ import com.aska.models.survey.SurveyQuestionAnswer;
 import java.util.List;
 import java.util.Objects;
 
+
 public class SurveyForm {
     private String name;
 
@@ -13,22 +14,26 @@ public class SurveyForm {
 
     private boolean resultsShow;
 
-    private SurveyQuestion question;
+    public List<SurveyQuestion> getQuestions() {
+        return questions;
+    }
 
-    private SurveyQuestionAnswer answer;
+    public void setQuestions(List<SurveyQuestion> questions) {
+        this.questions = questions;
+    }
+
+    private List<SurveyQuestion> questions;
 
 
     public SurveyForm() {
 
     }
 
-    public SurveyForm(String name, String showMode, boolean resultsShow,
-                       SurveyQuestion question, SurveyQuestionAnswer answer) {
+    public SurveyForm(String name, String showMode, boolean resultsShow, List<SurveyQuestion> questions) {
         this.name = name;
         this.showMode = showMode;
         this.resultsShow = resultsShow;
-        this.question = question;
-        this.answer = answer;
+        this.questions = questions;
     }
 
 
@@ -57,30 +62,13 @@ public class SurveyForm {
     }
 
 
-    public SurveyQuestion getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(SurveyQuestion question) {
-        this.question = question;
-    }
-
-    public SurveyQuestionAnswer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(SurveyQuestionAnswer answer) {
-        this.answer = answer;
-    }
-
     @Override
     public String toString() {
         return "SurveyForm{" +
                 "name='" + name + '\'' +
                 ", showMode='" + showMode + '\'' +
                 ", resultsShow=" + resultsShow +
-                ", question=" + question +
-                ", answer=" + answer +
+                ", questions=" + questions +
                 '}';
     }
 }

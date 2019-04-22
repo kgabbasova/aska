@@ -6,6 +6,7 @@ import com.aska.models.survey.Survey;
 import com.aska.models.user.User;
 import com.aska.repositories.UserRepository;
 import com.aska.services.RegistrationService;
+import com.aska.services.SurveyService;
 import com.aska.services.SurveyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,7 +36,7 @@ public class UserController {
     private RegistrationService registrationService;
 
     @Autowired
-    private SurveyServiceImpl surveyService;
+    private SurveyService surveyService;
 
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
@@ -99,9 +100,7 @@ public class UserController {
     public String profileGet (ModelMap modelMap) throws SQLException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        System.out.println(currentUserName);
         List<Survey> surveys = surveyService.getUserSurveys(currentUserName);
-        System.out.println(surveys);
         modelMap.addAttribute("surveys", surveys);
         return "user/profile";
     }

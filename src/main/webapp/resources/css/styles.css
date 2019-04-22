@@ -104,19 +104,34 @@ img.logo {
     /*font-family: Georgia, "Times New Roman", Times, serif;*/
     font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+.form-style-6 {
+    max-width: 70%;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 
 
-.form-style-5 fieldset {
+.form-style-5 fieldset, .form-style-6 fieldset {
     border: none;
 }
 
-.form-style-5 legend {
+.form-style-5 legend, .form-style-6 legend {
     font-size: 1.5em;
     margin-bottom: 30px;
     text-align: center;
 }
+.form-style-6 p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
 
-.form-style-5 label {
+.form-style-5 label, .form-style-6 label {
     font-size: 1.1em;
     display: block;
     margin-bottom: 12px;
@@ -132,7 +147,18 @@ img.logo {
 .form-style-5 input[type="time"],
 .form-style-5 input[type="url"],
 .form-style-5 textarea,
-.form-style-5 select {
+.form-style-5 select,
+.form-style-6 input[type="text"],
+.form-style-6 input[type="password"],
+.form-style-6 input[type="date"],
+.form-style-6 input[type="datetime"],
+.form-style-6 input[type="email"],
+.form-style-6 input[type="number"],
+.form-style-6 input[type="search"],
+.form-style-6 input[type="time"],
+.form-style-6 input[type="url"],
+.form-style-6 textarea,
+.form-style-6 select {
     
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     background: rgba(255, 255, 255, .1);
@@ -163,16 +189,29 @@ img.logo {
 .form-style-5 input[type="time"]:focus,
 .form-style-5 input[type="url"]:focus,
 .form-style-5 textarea:focus,
-.form-style-5 select:focus {
+.form-style-5 select:focus,
+.form-style-6 input[type="text"]:focus,
+.form-style-6 input[type="password"]:focus,
+.form-style-6 input[type="date"]:focus,
+.form-style-6 input[type="datetime"]:focus,
+.form-style-6 input[type="email"]:focus,
+.form-style-6 input[type="number"]:focus,
+.form-style-6 input[type="search"]:focus,
+.form-style-6 input[type="time"]:focus,
+.form-style-6 input[type="url"]:focus,
+.form-style-6 textarea:focus,
+.form-style-6 select:focus {
     background: #d2e9dd;
 }
 
-.form-style-5 select {
+.form-style-5 select, .form-style-6 select {
     -webkit-appearance: menulist-button;
     height: 45px;
 }
 
-.form-style-5 .number {
+
+
+.form-style-5 .number,  .form-style-6 .number{
     background: #1abc9c;
     color: #fff;
     height: 30px;
@@ -187,7 +226,9 @@ img.logo {
 }
 
 .form-style-5 input[type="submit"],
-.form-style-5 input[type="button"] {
+.form-style-5 input[type="button"],
+.form-style-6 input[type="submit"],
+.form-style-6 input[type="button"]{
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
@@ -203,9 +244,18 @@ img.logo {
     margin-bottom: 10px;
     border-radius: 8px;
 }
+.form-style-6 button {
+    color: #FFF;
+    background: #1abc9c;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+}
 
 .form-style-5 input[type="submit"]:hover,
-.form-style-5 input[type="button"]:hover {
+.form-style-5 input[type="button"]:hover,
+.form-style-6 input[type="submit"]:hover,
+.form-style-6 input[type="button"]:hover,
+.form-style-6 button:hover{
     background: #109177;
 }
 
@@ -717,7 +767,7 @@ hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid rgba(0, 0, 0, 0.1);
 }
 
 small,

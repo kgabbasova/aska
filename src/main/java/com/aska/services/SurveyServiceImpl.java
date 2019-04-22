@@ -1,11 +1,17 @@
 package com.aska.services;
 
+import com.aska.forms.SurveyForm;
 import com.aska.models.survey.ShowMode;
 import com.aska.models.survey.Survey;
+import com.aska.models.survey.SurveyQuestion;
+import com.aska.models.survey.SurveyQuestionAnswer;
 import com.aska.models.user.User;
+import com.aska.repositories.AnswerRepository;
+import com.aska.repositories.QuestionRepository;
 import com.aska.repositories.SurveyRepository;
 import com.aska.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -21,22 +27,33 @@ public class SurveyServiceImpl implements SurveyService {
     @Autowired
     UserRepository userRepository;
 
-    public void testing() throws SQLException {
-        User user = userRepository.findUserByEmail("kami@gm.com");
-        Survey survey = new Survey("jasper", user, null, ShowMode.ALL, true);
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    AnswerRepository answerRepository;
+
+
+    public List<Survey> getUserSurveys(String name) throws SQLException {
+        User user = userRepository.findUserByEmail(name);
+        return surveyRepository.findAllByUser(user);
+    }
+
+    public void addSurveyFromForm(SurveyForm surveyForm) throws SQLException {
+        User user = userRepository.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Survey survey = new Survey(surveyForm.getName(), user, surveyForm.getQuestions(), ShowMode.valueOf(surveyForm.getShowMode()), surveyForm.isResultsShow());
+        for (SurveyQuestion q : survey.getQuestions()) {
+            q.setSurvey(survey);
+            for (SurveyQuestionAnswer a : q.getQuestionAnswers()) {
+                a.setSurveyQuestion(q);
+            }
+        }
         addSurvey(survey);
     }
 
-    public List<Survey> getUserSurveys (String name) throws SQLException {
-        User user = userRepository.findUserByEmail(name);
-        return user.getSurveys();
-    }
 
     @Override
     public void addSurvey(Survey survey) {
-
-        User owner = survey.getUser();
-        owner.getSurveys().add(survey);
         surveyRepository.save(survey);
     }
 }

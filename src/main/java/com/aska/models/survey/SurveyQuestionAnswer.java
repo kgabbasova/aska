@@ -13,16 +13,24 @@ public class SurveyQuestionAnswer {
 
     private String description;
 
+    public boolean isRight() {
+        return right;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
     @Column(name = "is_right")
-    private boolean isRight;
+    private boolean right;
 
     @ManyToOne
     @JoinColumn (name = "question_id")
     private SurveyQuestion surveyQuestion;
 
-    public SurveyQuestionAnswer(String description, boolean isRight, SurveyQuestion surveyQuestion) {
+    public SurveyQuestionAnswer(String description, boolean right, SurveyQuestion surveyQuestion) {
         this.description = description;
-        this.isRight = isRight;
+        this.right = right;
         this.surveyQuestion = surveyQuestion;
     }
 
@@ -46,13 +54,7 @@ public class SurveyQuestionAnswer {
         this.description = description;
     }
 
-    public boolean isRight() {
-        return isRight;
-    }
 
-    public void setRight(boolean right) {
-        isRight = right;
-    }
 
 
     public SurveyQuestion getSurveyQuestion() {
@@ -68,7 +70,7 @@ public class SurveyQuestionAnswer {
         return "SurveyQuestionAnswer{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", isRight=" + isRight +
+                ", right=" + right +
                 ", surveyQuestion=" + surveyQuestion +
                 '}';
     }

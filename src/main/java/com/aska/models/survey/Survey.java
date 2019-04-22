@@ -121,4 +121,18 @@ public class Survey {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    @Override
+    public String toString() {
+        return "Survey{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                ", questions=" + questions +
+                ", showMode=" + showMode +
+                ", resultsShow=" + resultsShow +
+                ", created=" + created +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

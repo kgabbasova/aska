@@ -49,6 +49,11 @@
 
 
     <div class="user-surveys jumbotron p-4 p-md-5 text-dark rounded bg-light row">
+        <c:if test="${not empty message}">
+            <div class="h4 text-success">
+                <p>${message}</p>
+            </div>
+        </c:if>
         <c:choose>
             <c:when test="${not empty surveys}">
                 <div class="col-12 mb-4">
