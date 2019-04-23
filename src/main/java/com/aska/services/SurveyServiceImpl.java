@@ -56,4 +56,9 @@ public class SurveyServiceImpl implements SurveyService {
     public void addSurvey(Survey survey) {
         surveyRepository.save(survey);
     }
+
+    @Override
+    public void deleteSurvey (Long id ) {
+        surveyRepository.deleteById(id);
+    }
 }

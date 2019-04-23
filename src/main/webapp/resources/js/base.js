@@ -95,6 +95,13 @@ $(document).ready(function () {
 
 
 
+        $('div.survey-delete').on('click', function() {
+            let formId = $(this).children('form').attr('id');
+            console.log(formId);
+            $('#btn-delete').attr('form', formId);
+        });
+
+
 });
 
 

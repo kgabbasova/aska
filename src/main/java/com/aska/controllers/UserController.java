@@ -70,7 +70,6 @@ public class UserController {
 
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
-
     public String loginGet(ModelMap modelMap) {
 
         if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
@@ -102,6 +101,7 @@ public class UserController {
         String currentUserName = authentication.getName();
         List<Survey> surveys = surveyService.getUserSurveys(currentUserName);
         modelMap.addAttribute("surveys", surveys);
+
         return "user/profile";
     }
 }

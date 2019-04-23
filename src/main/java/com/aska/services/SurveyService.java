@@ -14,4 +14,5 @@ public interface SurveyService {
 
     public void addSurveyFromForm (SurveyForm surveyForm) throws SQLException;
 
+    public void deleteSurvey (Long id );
 }

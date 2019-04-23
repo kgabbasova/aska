@@ -26,7 +26,9 @@ img.logo {
 }
 
 
-
+table a:hover {
+    text-decoration: none;
+}
 
 .featurette-heading {
     font-weight: 300;
@@ -115,6 +117,7 @@ img.logo {
     /*font-family: Georgia, "Times New Roman", Times, serif;*/
     font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+
 
 
 .form-style-5 fieldset, .form-style-6 fieldset {

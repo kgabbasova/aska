@@ -63,9 +63,10 @@
                     <table class="col-12 css-serial table table-bordered table-hover">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col" class="text-center">#</th>
-                            <th scope="col">Survey name</th>
-                            <th scope="col">Survey code</th>
+                            <th scope="col" class="text-center" width="5%">#</th>
+                            <th scope="col" width="50%" class="text-center">Survey name</th>
+                            <th scope="col" width="25%" class="text-center">Survey code</th>
+                            <th id="actions" scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -74,6 +75,27 @@
                                 <td scope="row" class="text-center"></td>
                                 <td>${tr.name}</td>
                                 <td>${tr.id}</td>
+                                <td>
+                                    <div class="row justify-content-around p-2 m-0">
+                                        <div class="p-0">
+                                            <a href="" class="text-dark"><img
+                                                    src="https://img.icons8.com/ultraviolet/40/000000/pencil.png" width="25px"
+                                            >Edit</a>
+                                        </div>
+                                        <div class="text-dark survey-delete p-0" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">
+                                            <form action="${s:mvcUrl("SC#deleteSurvey").build()}${tr.id}" method="post" class="survey-delete" id="survey-delete-${tr.id}">
+
+                                                <img
+                                                        src="https://img.icons8.com/color/48/000000/waste.png" width="30px"
+                                                >Delete
+                                                <input type="hidden"
+                                                       name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}"/>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -86,6 +108,35 @@
                 </div>
             </c:otherwise>
         </c:choose>
+        <%--TODO add btn add survey--%>
+    </div>
+
+    <%--TODO add select by clicking in row--%>
+
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm delete</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Do you really want to delete this survey?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" id="btn-delete" class="btn btn-primary">Yes</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 
@@ -120,6 +171,10 @@
         <a href="#Aska-logo">Back to top</a>
     </p>
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>
