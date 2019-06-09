@@ -6,6 +6,10 @@ import com.aska.models.survey.SurveyQuestion;
 import com.aska.services.QuestionService;
 import com.aska.services.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +31,20 @@ public class QuestionController {
 
     @RequestMapping(value = "/survey/{surveyId}/question/{questionId}/results", method = RequestMethod.GET)
     public String questionResultsGet(@PathVariable("surveyId") Long sId, @PathVariable("questionId") Long qId, ModelMap modelMap) {
+        if (!surveyService.isSurveyExist(sId) || !questionService.isQuestionExist(qId)
+                || !surveyService.existSurveyQuest(sId, qId)) {
+            throw new NullPointerException();
+        }
+        if (!surveyService.getResultsShowById(sId)) {
+            if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
+                throw new AccessDeniedException("Anonymous");
+            }
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            if (!surveyService.existUserSurvey(username, sId)) {
+                throw new AccessDeniedException(username);
+            }
+        }
+
         SurveyQuestion questionResults = questionService.getQuestion(sId, qId);
         SurveyQuestion nextQ = questionService.getNextQuestion(sId, qId);
         SurveyQuestion prevQ = questionService.getPrevQuestion(sId, qId);

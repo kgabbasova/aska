@@ -13,7 +13,7 @@ public class InvalidSurveyCodeException extends RuntimeException {
         this.message = message;
     }
 
-    public String getMessage () {
+    public String getMessage() {
         return message;
     }
 

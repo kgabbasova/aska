@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(1209600)
                 .userDetailsService(userDetailsService)
 
+//                .and().exceptionHandling().accessDeniedPage("/errors/error403")
 
                 .and()
                 .csrf();

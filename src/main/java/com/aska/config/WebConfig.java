@@ -6,15 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
-import java.util.List;
 
 
 @Configuration
@@ -33,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
         viewResolver.setRedirectContextRelative(false);
         return viewResolver;
     }
+
 
 
     @Override

@@ -22,11 +22,13 @@ public interface SurveyService {
 
     boolean isSurveyExist(Long id);
 
-    Survey getUserSurvey(String username, Long surveyId);
+    boolean existUserSurvey(String username, Long surveyId);
 
     boolean getResultsShowById(Long id);
 
     ShowMode getSurveyShowMode(Long sId);
+
+    boolean existSurveyQuest (Long survId, Long questId);
 
 }
 

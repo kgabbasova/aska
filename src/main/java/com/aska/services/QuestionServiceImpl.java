@@ -41,6 +41,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public SurveyQuestion getQuestion(Long surveyId, Long questionId) {
         SurveyQuestion question = questionRepository.getById(questionId);
+
         question.setSurvey(surveyRepository.getById(surveyId));
         question.setQuestionAnswers(answerRepository.getBySurveyQuestion_Id(questionId));
         return question;

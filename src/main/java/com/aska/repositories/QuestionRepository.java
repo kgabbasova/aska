@@ -38,4 +38,6 @@ public interface QuestionRepository extends JpaRepository<SurveyQuestion, Long> 
     SurveyQuestion getFirstBySurvey_IdAndIdGreaterThan(Long sId, Long qId);
 
     SurveyQuestion getFirstBySurvey_IdAndIdLessThan (Long sid, Long qId);
+
+    
 }

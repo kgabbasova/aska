@@ -22,8 +22,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(webApplicationContext);
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
         ServletRegistration.Dynamic registration = servletContext.addServlet("WebConfig", dispatcherServlet);
         registration.setLoadOnStartup(1);
+
         registration.addMapping("/");
 
     }

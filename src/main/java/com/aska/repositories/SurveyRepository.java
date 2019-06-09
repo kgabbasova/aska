@@ -39,4 +39,6 @@ public interface SurveyRepository extends JpaRepository<Survey, Long> {
     @Query ("select showMode from Survey s where s.id=:id")
     ShowMode getShowModeById(@Param("id")Long id);
 
+    boolean existsByIdAndQuestionsId(Long surveyId, Long questId);
+
 }

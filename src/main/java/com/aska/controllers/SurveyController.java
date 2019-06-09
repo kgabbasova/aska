@@ -8,6 +8,7 @@ import com.aska.models.survey.SurveyQuestion;
 import com.aska.services.QuestionService;
 import com.aska.services.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -57,12 +58,18 @@ public class SurveyController {
         return "redirect:" + MvcUriComponentsBuilder.fromMappingName("UC#profileGet").build();
     }
 
-    //TODO Check user
+
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String surveyGet(@PathVariable(value = "id") Long id, ModelMap modelMap) throws SQLException {
+    public String surveyGet(@PathVariable(value = "id") Long id, ModelMap modelMap) {
+        if (!surveyService.isSurveyExist(id)) {
+            throw new NullPointerException();
+        }
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
+        if (!surveyService.existUserSurvey(username, id)) {
+            throw new AccessDeniedException(username);
+        }
         Survey survey = surveyService.getSurveyByID(id);
         modelMap.addAttribute("survey", survey);
         return "survey/survey";

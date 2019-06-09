@@ -5,14 +5,14 @@
 
 
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
-    <title></title>
+    <title>${errorMsg}</title>
     <meta charset="utf-8">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 <div class="container">
 
     <header class="blog-header py-3">
@@ -67,7 +67,7 @@
 
 
 
-    <div class="jumbotron p-4 p-md-5 text-dark rounded bg-light row" id="survey-code">
+    <div class=" p-4 mt-5 text-dark   row" id="survey-code">
 
 
             <h2 class="text-center">${errorMsg}</h2>

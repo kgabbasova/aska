@@ -73,14 +73,9 @@ public class SurveyServiceImpl implements SurveyService {
 
 
     @Override
-    public Survey getUserSurvey(String username, Long surveyId) {
+    public boolean existUserSurvey(String username, Long surveyId) {
 
-        User user = userRepository.findUserByEmail(username);
-        Survey survey = getSurveyByID(surveyId);
-        if (!survey.getUser().equals(user)) {
-            throw new AccessDeniedException("Access denied");
-        } else
-            return survey;
+        return userRepository.existsByEmailAndSurveysId(username, surveyId);
     }
 
     @Override
@@ -92,6 +87,11 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public ShowMode getSurveyShowMode(Long sId) {
         return surveyRepository.getShowModeById(sId);
+    }
+
+    @Override
+    public boolean existSurveyQuest(Long survId, Long questId) {
+        return surveyRepository.existsByIdAndQuestionsId(survId, questId);
     }
 
 }
