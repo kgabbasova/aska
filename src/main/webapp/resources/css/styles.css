@@ -162,7 +162,7 @@ table a:hover {
 .form-style-6 input[type="url"],
 .form-style-6 textarea,
 .form-style-6 select {
-    
+
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     background: rgba(255, 255, 255, .1);
     border: none;
@@ -231,7 +231,7 @@ table a:hover {
 .form-style-5 input[type="submit"],
 .form-style-5 input[type="button"],
 .form-style-6 input[type="submit"],
-.form-style-6 input[type="button"]{
+.form-style-6 input[type="button"] {
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
@@ -247,7 +247,8 @@ table a:hover {
     margin-bottom: 10px;
     border-radius: 8px;
 }
-.form-style-6 button {
+.form-style-6 button,
+.form-style-6 a.btn    {
     color: #FFF;
     background: #1abc9c;
     border: 1px solid #16a085;
@@ -258,15 +259,18 @@ table a:hover {
 .form-style-5 input[type="button"]:hover,
 .form-style-6 input[type="submit"]:hover,
 .form-style-6 input[type="button"]:hover,
-.form-style-6 button:hover{
+.form-style-6 button:hover,
+.form-style-6 a.btn:hover {
     background: #109177;
 }
+
+
 
 /* stylelint-disable selector-list-comma-newline-after */
 
 .blog-header {
     line-height: 1;
-    
+
 }
 
 .blog-header-logo {
@@ -310,7 +314,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-scroller .nav a {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
 }
 
 
@@ -413,6 +417,8 @@ body {
     color: #212529;
     text-align: left;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
 }
 
 [tabindex="-1"]:focus {
@@ -5512,6 +5518,24 @@ tbody.collapse.show {
     padding-left: 0;
     border-radius: 0;
 }
+
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+#surveys_code {
+    min-width: 150px;
+}
+
+.jumbotron-mini {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 
 .alert {
     position: relative;

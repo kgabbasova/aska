@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     $("#add-question").click(function () {
 
         let questnumb = $("div.survey-question-info").length + 1;
@@ -24,7 +23,7 @@ $(document).ready(function () {
             "                        <div class=\"row justify-content-around mt-3 mb-4\">\n" +
             "                            <div>\n" +
             "                                <label for=\"question-single" + questnumb + "\">\n" +
-            "                                    <input id=\"question-single" + questnumb + "\" name=\"questions[" + val + "].type\" type=\"radio\" value=\"single\"/>\n" +
+            "                                    <input id=\"question-single" + questnumb + "\" name=\"questions[" + val + "].type\" type=\"radio\" checked =\"true\" value=\"single\"/>\n" +
             "                                    One answer question</label>\n" +
             "                            </div>\n" +
             "                            <div>\n" +

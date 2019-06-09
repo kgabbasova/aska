@@ -1,5 +1,6 @@
 package com.aska.security;
 
+import com.aska.models.user.User;
 import com.aska.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +20,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDetails userDetails = null;
-        try {
-            userDetails = new UserDetailsImpl(userRepository.findUserByEmail(s));
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        User user = userRepository.findUserByEmail(s);
+        if (user == null) {
+            throw new UsernameNotFoundException(s);
         }
-        return userDetails;
+        return new UserDetailsImpl(user);
     }
 }
 

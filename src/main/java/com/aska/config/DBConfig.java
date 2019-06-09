@@ -9,7 +9,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -25,7 +24,7 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "com.aska.models")
-@EnableJpaRepositories(basePackages = "com.aska", entityManagerFactoryRef = "entityManagerFactoryBean")
+@EnableJpaRepositories(basePackages = "com.aska.repositories", entityManagerFactoryRef = "entityManagerFactoryBean")
 @EnableTransactionManagement
 public class DBConfig extends DriverManagerDataSource {
 
@@ -40,6 +39,7 @@ public class DBConfig extends DriverManagerDataSource {
         dataSource.setUsername("postgres");
         dataSource.setPassword("1234");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/survey_app");
+
         return dataSource;
     }
 
@@ -68,25 +68,6 @@ public class DBConfig extends DriverManagerDataSource {
     }
 
 
-//        @Bean
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(postgresqlDataSource());
-//        sessionFactory.setPackagesToScan(new String[]{"ru.kgabbasova.models"});
-//        sessionFactory.setHibernateProperties(additionalProperties());
-//        return sessionFactory;
-//    }
-
-//    @Bean
-//    @Autowired
-//    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-//
-//        HibernateTransactionManager txManager
-//                = new HibernateTransactionManager();
-//        txManager.setSessionFactory(sessionFactory);
-//
-//        return txManager;
-//    }
 
     @Bean
     public PersistenceExceptionTranslationPostProcessor postProcessor() {

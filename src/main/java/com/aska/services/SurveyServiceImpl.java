@@ -1,20 +1,15 @@
 package com.aska.services;
 
 import com.aska.forms.SurveyForm;
-import com.aska.models.survey.ShowMode;
-import com.aska.models.survey.Survey;
-import com.aska.models.survey.SurveyQuestion;
-import com.aska.models.survey.SurveyQuestionAnswer;
+import com.aska.models.survey.*;
 import com.aska.models.user.User;
-import com.aska.repositories.AnswerRepository;
-import com.aska.repositories.QuestionRepository;
 import com.aska.repositories.SurveyRepository;
 import com.aska.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -22,24 +17,21 @@ import java.util.List;
 public class SurveyServiceImpl implements SurveyService {
 
     @Autowired
-    SurveyRepository surveyRepository;
+    private SurveyRepository surveyRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
 
     @Autowired
-    QuestionRepository questionRepository;
-
-    @Autowired
-    AnswerRepository answerRepository;
+    private QuestionService questionService;
 
 
-    public List<Survey> getUserSurveys(String name) throws SQLException {
-        User user = userRepository.findUserByEmail(name);
-        return surveyRepository.findAllByUser(user);
+    public List<Survey> getUserSurveys(String name) {
+        return surveyRepository.findAllByUser_Email(name);
     }
 
-    public void addSurveyFromForm(SurveyForm surveyForm) throws SQLException {
+    public void addSurveyFromForm(SurveyForm surveyForm) {
         User user = userRepository.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         Survey survey = new Survey(surveyForm.getName(), user, surveyForm.getQuestions(), ShowMode.valueOf(surveyForm.getShowMode()), surveyForm.isResultsShow());
         for (SurveyQuestion q : survey.getQuestions()) {
@@ -58,7 +50,48 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public void deleteSurvey (Long id ) {
+    public void deleteSurvey(Long id) {
         surveyRepository.deleteById(id);
     }
+
+    @Override
+    public boolean isSurveyExist(Long id) {
+        return surveyRepository.existsById(id);
+    }
+
+    @Override
+    public Survey getSurveyByID(Long id) {
+
+        Survey survey = surveyRepository.getById(id);
+        List<SurveyQuestion> questions = questionService.getQuestionsBySurveyId(id);
+        for (SurveyQuestion question : questions) {
+            question.setQuestionAnswers(questionService.getQuestionAnswers(question.getId()));
+        }
+        survey.setQuestions(questions);
+        return survey;
+    }
+
+
+    @Override
+    public Survey getUserSurvey(String username, Long surveyId) {
+
+        User user = userRepository.findUserByEmail(username);
+        Survey survey = getSurveyByID(surveyId);
+        if (!survey.getUser().equals(user)) {
+            throw new AccessDeniedException("Access denied");
+        } else
+            return survey;
+    }
+
+    @Override
+    public boolean getResultsShowById(Long id) {
+        return surveyRepository.getResultsShowById(id);
+    }
+
+
+    @Override
+    public ShowMode getSurveyShowMode(Long sId) {
+        return surveyRepository.getShowModeById(sId);
+    }
+
 }

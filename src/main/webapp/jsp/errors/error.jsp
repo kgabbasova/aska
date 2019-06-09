@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title></title>
     <meta charset="utf-8">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
 </head>
@@ -49,8 +49,8 @@
 
     <div class="nav-scroller py-3 mb-4 mt-2">
         <nav class="nav d-flex justify-content-around align-items-center">
-            <a class="p-2 text-muted" href="#about-us">About us</a>
-            <a class="p-2 text-muted" href="#survey-code-form">Enter a code</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl("UC#homeGet").build()}">Home</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl("SC#enterSurveyCode").build()}">Enter a code</a>
             <a class="p-2 text-muted" href="#partners">Partners</a>
         </nav>
     </div>
@@ -58,50 +58,21 @@
     <sec:authorize access="isAuthenticated()">
         <div class="nav-scroller py-3 mb-4 mt-2">
             <nav class="nav d-flex justify-content-around align-items-center">
-            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Your profile</a>
-            <a class="p-2 text-muted" href="${s:mvcUrl('SC#createSurveyGet').build()}">Create a survey</a>
+                <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Your profile</a>
+                <a class="p-2 text-muted" href="${s:mvcUrl('SC#createSurveyGet').build()}">Create a survey</a>
             </nav>
         </div>
     </sec:authorize>
 
 
-    <section class="row about-us mb-2" id="about-us">
-
-        <div class="col-md-7 about-us-text">
-            <h2 class="featurette-heading">Participate in the survey or create your own!</h2>
-            <p class="lead">Use Aska and get an opportunity to conduct an interactive survey with a graphical
-                presentation
-                of the results. All you need is to go through a few small steps to log in.</p>
-            <p class="lead">Or just enter the <a href="#survey-code-form">survey code </a> to answer a tricky question!
-            </p>
-        </div>
-        <div class="col-md-5">
-            <img src="/resources/images/survey.png"
-                 class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                 width="500" height="500" alt="Your voice matters!">
-        </div>
-
-    </section>
 
 
     <div class="jumbotron p-4 p-md-5 text-dark rounded bg-light row" id="survey-code">
-        <div class="col-6 px-1">
-            <label for="survey-code-form">
-                <p class="lead my-3">Each survey has its own unique number. Just enter the appropriate code to go to its
-                    questions. </p>
-            </label>
-        </div>
 
 
-        <div class="col-6 px-2">
-            <form action="${s:mvcUrl('SC#passSurveyAccess').build()}" method="get">
-                <div class="survey-code">
-                    <input type="text" name="surveyCode" required id="survey-code-form">
-                    <input type="submit" value="Submit!">
-                </div>
-            </form>
+            <h2 class="text-center">${errorMsg}</h2>
 
-        </div>
+
     </div>
 
 </div>

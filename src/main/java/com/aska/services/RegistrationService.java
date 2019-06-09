@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public interface RegistrationService {
 
-    public boolean isExist(String email) throws SQLException;
+    boolean isExist(String email) throws SQLException;
 
     void registerUser(RegistrationForm registrationForm) throws SQLException;
 

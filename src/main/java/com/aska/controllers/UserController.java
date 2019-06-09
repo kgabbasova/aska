@@ -3,13 +3,9 @@ package com.aska.controllers;
 
 import com.aska.forms.RegistrationForm;
 import com.aska.models.survey.Survey;
-import com.aska.models.user.User;
-import com.aska.repositories.UserRepository;
 import com.aska.services.RegistrationService;
 import com.aska.services.SurveyService;
-import com.aska.services.SurveyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +26,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
+
 
 
     @Autowired
@@ -82,6 +79,7 @@ public class UserController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(ModelMap modelMap, HttpServletRequest request) {
+
         if (request.getParameterMap().containsKey("error")) {
             modelMap.addAttribute("error", true);
         }

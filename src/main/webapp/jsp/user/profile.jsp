@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 
 <!DOCTYPE html>
@@ -11,6 +11,8 @@
     <meta charset="utf-8">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
 </head>
+
+
 
 <body>
 <div class="container">
@@ -41,7 +43,7 @@
 
     <div class="nav-scroller py-3 mb-4 mt-2">
         <nav class="nav d-flex justify-content-around align-items-center">
-            <a class="p-2 text-muted" href="#">Edit profile</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl("UC#homeGet").build()}">Home</a>
             <a class="p-2 text-muted" href="${s:mvcUrl('SC#createSurveyGet').build()}">Create a survey</a>
             <a class="p-2 text-muted" href="#survey-code-form">Enter a code</a>
         </nav>
@@ -73,20 +75,23 @@
                         <c:forEach items="${surveys}" var="tr">
                             <tr>
                                 <td scope="row" class="text-center"></td>
-                                <td>${tr.name}</td>
+                                <td><a class="text-dark" href="${s:mvcUrl('SC#surveyGet').build()}${tr.id}">${tr.name}</a></td>
                                 <td>${tr.id}</td>
                                 <td>
                                     <div class="row justify-content-around p-2 m-0">
                                         <div class="p-0">
-                                            <a href="" class="text-dark"><img
-                                                    src="https://img.icons8.com/ultraviolet/40/000000/pencil.png" width="25px"
-                                            >Edit</a>
+                                            <a href="${s:mvcUrl("SC#getSurveyResults").arg(0, tr.id).build()}" class="text-dark"><img
+                                                    src="https://images.vexels.com/media/users/3/131742/isolated/preview/77bfbc157598660ab507820bacc9fce0-piechart-infographic-by-vexels.png" alt="results"
+                                                    width="25px">Results</a>
                                         </div>
-                                        <div class="text-dark survey-delete p-0" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">
-                                            <form action="${s:mvcUrl("SC#deleteSurvey").build()}${tr.id}" method="post" class="survey-delete" id="survey-delete-${tr.id}">
+                                        <div class="text-dark survey-delete p-0" data-toggle="modal"
+                                             data-target="#deleteModal" style="cursor: pointer;">
+                                            <form action="${s:mvcUrl("SC#deleteSurvey").build()}${tr.id}" method="post"
+                                                  class="survey-delete" id="survey-delete-${tr.id}">
 
                                                 <img
-                                                        src="https://img.icons8.com/color/48/000000/waste.png" width="30px"
+                                                        src="https://img.icons8.com/color/48/000000/waste.png"
+                                                        width="30px" alt="delete"
                                                 >Delete
                                                 <input type="hidden"
                                                        name="${_csrf.parameterName}"
@@ -108,10 +113,10 @@
                 </div>
             </c:otherwise>
         </c:choose>
-        <%--TODO add btn add survey--%>
+        <a class="btn btn-info col-3 mt-2 p-3" href="${s:mvcUrl("SC#createSurveyGet").build()}"
+           style="background-color: #1abc9c; font-size: 18px;">Create a new survey</a>
     </div>
 
-    <%--TODO add select by clicking in row--%>
 
 
     <div class="modal" id="deleteModal">
@@ -150,12 +155,9 @@
 
 
         <div class="col-md-6 px-2">
-            <form action="/home" method="post">
+            <form action="${s:mvcUrl('SC#passSurveyAccess').build()}" method="get">
                 <div class="survey-code">
-                    <input type="text" name="survey-code" id="survey-code-form">
-                    <input type="hidden"
-                           name="${_csrf.parameterName}"
-                           value="${_csrf.token}"/>
+                    <input type="text" name="surveyCode" required id="survey-code-form">
                     <input type="submit" value="Submit!">
                 </div>
             </form>
@@ -171,6 +173,8 @@
         <a href="#Aska-logo">Back to top</a>
     </p>
 </footer>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/base.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>

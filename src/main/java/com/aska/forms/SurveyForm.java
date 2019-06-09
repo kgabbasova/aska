@@ -14,13 +14,7 @@ public class SurveyForm {
 
     private boolean resultsShow;
 
-    public List<SurveyQuestion> getQuestions() {
-        return questions;
-    }
 
-    public void setQuestions(List<SurveyQuestion> questions) {
-        this.questions = questions;
-    }
 
     private List<SurveyQuestion> questions;
 
@@ -61,6 +55,13 @@ public class SurveyForm {
         this.resultsShow = resultsShow;
     }
 
+    public List<SurveyQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<SurveyQuestion> questions) {
+        this.questions = questions;
+    }
 
     @Override
     public String toString() {

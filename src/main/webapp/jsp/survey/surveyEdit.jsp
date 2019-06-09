@@ -1,18 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Create a survey</title>
+    <title>Edit Survey</title>
     <meta charset="utf-8">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
 <div class="container">
 
@@ -42,9 +39,9 @@
 
     <div class="nav-scroller py-3 mb-4 mt-2">
         <nav class="nav d-flex justify-content-around align-items-center">
-            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Edit profile</a>
-            <a class="p-2 text-muted" href="${s:mvcUrl('UC#profileGet').build()}">Your surveys</a>
-            <a class="p-2 text-muted" href="#">Enter a code</a>
+            <a class="p-2 text-muted" href="UC#profileGet">Your surveys</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl('SC#createSurveyGet').build()}">Create a survey</a>
+            <a class="p-2 text-muted" href="${s:mvcUrl("SC#enterSurveyCode").build()}">Enter a code</a>
         </nav>
     </div>
 
@@ -52,9 +49,9 @@
     <div class="poll mt-3 mb-4 jumbotron p-4 p-md-5 text-dark rounded bg-light">
         <div class="form-style-6">
 
-            <form:form action="${s:mvcUrl('SC#createSurveyPost').build()}" method="post" modelAttribute="surveyForm">
+            <form:form action="${s:mvcUrl('SC').build()}" method="post" modelAttribute="surveyForm">
                 <fieldset>
-                    <legend> Create your poll!</legend>
+
 
                     <c:if test="${not empty message}">
                         <div class="message">
@@ -89,6 +86,7 @@
                         </div>
                     </div>
                     <hr>
+
                     <div id="survey-question-info">
                         <div class="survey-question-info mb-4">
 
@@ -109,7 +107,7 @@
                             <div class="row justify-content-around mt-3 mb-4">
                                 <div>
                                     <label for="question-single">
-                                        <form:radiobutton path="questions[${countQ}].type" value="single"
+                                        <form:radiobutton path="questions[${countQ}].type" value="single" checked ="true"
                                                           id="question-single"/>
                                         One answer question</label>
                                 </div>
@@ -123,42 +121,42 @@
 
 
                             <ol>
-                                    <c:set var="countA" value="0" scope="page"/>
-                                    <div class="mb-4">
-                                        <li>
-                                            <label for="survey-answer-body">Answer
-                                                <form:textarea
-                                                        path="questions[${countQ}].questionAnswers[${countA}].description"
-                                                        id="survey-answer-body" cssClass="mb-1"
-                                                        required="true" maxlength="256" rows="2"/>
-                                            </label>
+                                <c:set var="countA" value="0" scope="page"/>
+                                <div class="mb-4">
+                                    <li>
+                                        <label for="survey-answer-body">Answer
+                                            <form:textarea
+                                                    path="questions[${countQ}].questionAnswers[${countA}].description"
+                                                    id="survey-answer-body" cssClass="mb-1"
+                                                    required="true" maxlength="256" rows="2"/>
+                                        </label>
 
-                                            <label for="survey-answer-is-right">
-                                                <form:checkbox
-                                                        path="questions[${countQ}].questionAnswers[${countA}].right"
-                                                        id="survey-answer-is-right"/>
-                                                Is it a right answer?
-                                            </label>
-                                        </li>
-                                    </div>
-                                    <div class="mb-4">
-                                        <li>
-                                            <c:set var="countA" value="${countA + 1}" scope="page"/>
-                                            <label for="survey-answer-body-2">Answer
-                                                <form:textarea
-                                                        path="questions[${countQ}].questionAnswers[${countA}].description"
-                                                        name="answer.description" cssClass="mb-1"
-                                                        id="survey-answer-body-2"
-                                                        required="true" maxlength="256" rows="2"/>
-                                            </label>
-                                            <label for="survey-answer-is-right-2">
-                                                <form:checkbox
-                                                        path="questions[${countQ}].questionAnswers[${countA}].right"
-                                                        id="survey-answer-is-right-2"/>
-                                                Is it a right answer?
-                                            </label>
-                                        </li>
-                                    </div>
+                                        <label for="survey-answer-is-right">
+                                            <form:checkbox
+                                                    path="questions[${countQ}].questionAnswers[${countA}].right"
+                                                    id="survey-answer-is-right"/>
+                                            Is it a right answer?
+                                        </label>
+                                    </li>
+                                </div>
+                                <div class="mb-4">
+                                    <li>
+                                        <c:set var="countA" value="${countA + 1}" scope="page"/>
+                                        <label for="survey-answer-body-2">Answer
+                                            <form:textarea
+                                                    path="questions[${countQ}].questionAnswers[${countA}].description"
+                                                    name="answer.description" cssClass="mb-1"
+                                                    id="survey-answer-body-2"
+                                                    required="true" maxlength="256" rows="2"/>
+                                        </label>
+                                        <label for="survey-answer-is-right-2">
+                                            <form:checkbox
+                                                    path="questions[${countQ}].questionAnswers[${countA}].right"
+                                                    id="survey-answer-is-right-2"/>
+                                            Is it a right answer?
+                                        </label>
+                                    </li>
+                                </div>
                                 <button class="btn col-3 add-answer" id="add-answer-1" type="button">Add answer</button>
                             </ol>
                         </div>
@@ -186,5 +184,6 @@
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/resources/js/base.js"></script>
+
 </body>
 </html>

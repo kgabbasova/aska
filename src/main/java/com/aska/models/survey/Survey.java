@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Objects;
+
 
 @Entity
 @Table (name = "survey")
@@ -19,7 +21,7 @@ public class Survey {
     @Column(name = "survey_name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
     private User user;
 
@@ -134,5 +136,27 @@ public class Survey {
                 ", created=" + created +
                 ", isActive=" + isActive +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Survey)) return false;
+        Survey survey = (Survey) o;
+        return
+                Objects.equals(id, survey.id);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 19 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.name);
+        hash = 19 * hash + Objects.hashCode(this.user);
+        hash = 19 * hash + Objects.hashCode(this.showMode);
+        hash = 19 * hash + Objects.hashCode(this.resultsShow);
+        hash = 19 * hash + Objects.hashCode(this.created);
+        hash = 19 * hash + Objects.hashCode(this.isActive);
+        return hash;
     }
 }

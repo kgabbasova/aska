@@ -9,8 +9,8 @@ import java.util.Calendar;
 @FieldMatch(baseField = "password", matchField = "passwordRepeat", message = "Passwords do not match!" )
 public class RegistrationForm {
 
-    @Email(regexp = "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:" +
-            "[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*" +
+    @Email(regexp = "^[-A-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:" +
+            "[A-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*" +
             "(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$",
             message = "Invalid email!")
     private String username;

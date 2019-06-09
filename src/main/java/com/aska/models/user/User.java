@@ -5,6 +5,7 @@ import com.aska.models.survey.Survey;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -122,6 +123,25 @@ public class User {
 
     public void setSurveys(List<Survey> surveys) {
         this.surveys = surveys;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(hashPassword, user.hashPassword) &&
+                Objects.equals(country, user.country) &&
+                Objects.equals(birthday, user.birthday) &&
+                role == user.role &&
+                state == user.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, hashPassword, country, birthday, role, state);
     }
 
 
